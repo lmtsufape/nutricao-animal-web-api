@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->enum('role',['AdmProf','AdmAluno','Tutor'])->default('tutor');
+            $table->enum('role',['AdmProf','AdmAluno','Tutor'])->default('Tutor');
             $table->string('cpf')->nullable(true);
         });
     }
