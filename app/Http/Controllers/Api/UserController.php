@@ -10,7 +10,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        Return User::all();
+        return User::all();
     }
     public function store(Request $request)
     {
