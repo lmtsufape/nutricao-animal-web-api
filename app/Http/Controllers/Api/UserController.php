@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Actions\Fortify\CreateNewUser;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Providers\FortifyServiceProvider;
+use Laravel\Fortify\Contracts\CreatesNewUsers;
 
 class UserController extends Controller
 {
@@ -14,8 +17,15 @@ class UserController extends Controller
     }
     public function store(Request $request)
     {
-        $user = User::create($request->all());
-        return response()->json($user,201);
+        $criador = new CreateNewUser();
+
+        $usuario = $criador->create($request->toArray());
+        if (!$usuario){
+            return response()->json(["error" => "Não conseguiu cadastrar"]);
+        }else{
+
+            return response()->json($usuario,201);
+        }
     }
     public function update(User $user,Request $request)
     {
