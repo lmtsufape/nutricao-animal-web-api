@@ -37,7 +37,6 @@ class CreateNewUser implements CreatesNewUsers
             'email_verified_at' => now(),
             'remember_token' => Str::random(10),
         ]);
-        $user->createToken('auth_token')->plainTextToken;
         return $user;
     }
 }

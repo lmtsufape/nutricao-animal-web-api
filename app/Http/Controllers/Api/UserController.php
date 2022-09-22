@@ -41,5 +41,12 @@ class UserController extends Controller
         }
         return $user;
     }
+    public function token(Request $request)
+    {
+    
+        $token = $request->user()->currentAccessToken();
+
+         return response()->json($token->plainTextToken,200);
+    }
 
 }
