@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\LoginController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UserController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -22,8 +23,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::apiResource('/users',UserController::class);
 
+
     Route::apiResource('users/{userId}/animals',AnimalController::class);
 
  });
 
 Route::post('/login', [LoginController::class, 'login']);
+
