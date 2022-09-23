@@ -13,11 +13,12 @@ class LoginController extends Controller{
     {
 
         $dados = $request->only(['email','password']);
-        if(!Auth::attempt($request->toArray()))
+        if(!Auth::attempt($dados))
         {
-            return response()->json(['error'=> 'failed to login']);
+            return response()->json(['error'=> 'failed to login'],406);
         }
         $user = Auth::user();
+
         $token =  $user->createToken('verified');
 
 

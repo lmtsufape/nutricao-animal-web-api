@@ -22,11 +22,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::apiResource('/users',UserController::class);
-
+    Route::apiResource('/users',UserController::class)->except('store');
 
     Route::apiResource('users/{userId}/animals',AnimalController::class);
 
  });
-
+Route::post('/users',[UserController::class,'store']);
 Route::post('/login', [LoginController::class, 'login']);
 

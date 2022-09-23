@@ -21,7 +21,7 @@ class UserController extends Controller
 
         $usuario = $criador->create($request->toArray());
         if (!$usuario){
-            return response()->json(["error" => "Não conseguiu cadastrar"]);
+            return response()->json(["error" => "Could not create a User"]);
         }else{
 
             return response()->json($usuario,201);
@@ -43,7 +43,7 @@ class UserController extends Controller
     }
     public function token(Request $request)
     {
-    
+
         $token = $request->user()->currentAccessToken();
 
          return response()->json($token->plainTextToken,200);

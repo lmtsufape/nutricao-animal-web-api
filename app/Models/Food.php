@@ -11,5 +11,9 @@ class Food extends Model
 
     protected $fillable = ['name','','category','carbohydrates'];
 
-    
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
