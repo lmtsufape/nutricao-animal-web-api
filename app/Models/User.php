@@ -66,4 +66,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Food::class);
     }
+    public function breeds()
+    {
+        return $this->hasMany(Breed::class);
+    }
 }

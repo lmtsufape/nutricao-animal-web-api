@@ -14,6 +14,10 @@ class Animal extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function biometry()
+    {
+        return $this->hasOne(Biometry::class);
+    }
 
 
 
