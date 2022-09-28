@@ -22,7 +22,7 @@ class LoginController extends Controller{
         $token =  $user->createToken('verified');
 
 
-        return response()->json($token->plainTextToken);
+        return response()->json(['token'=> $token->plainTextToken,'name'=> $user->name]);
     }
 
 
