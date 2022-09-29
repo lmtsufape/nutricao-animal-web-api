@@ -10,9 +10,11 @@ use Illuminate\Http\Request;
 
 class BiometryController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return Biometry::all();
+        $animal = Animal::find($request->animalId);
+        return response()->json($animal->biometry);
+        
     }
     public function store(Request $request)
     {
@@ -31,8 +33,8 @@ class BiometryController extends Controller
 
         return response()->json($biometry,201);
     }
-    public function destroy(Biometry $breed,int $id)
+    public function destroy(Biometry $biometry,int $id)
     {
-        $breed->destroy($id);
+        $biometry->destroy($id);
     }
 }
