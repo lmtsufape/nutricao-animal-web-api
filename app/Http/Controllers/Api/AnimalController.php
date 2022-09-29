@@ -18,7 +18,11 @@ class AnimalController extends Controller
     {
         $user = User::find($request->userId);
         $animal = $user->animals()->create($request->except(['userId']));
-           
+        if(!$animal){
+            return response()->json(['error' => "Could not create a Animal"],404);
+        }
+
+        $animal->menu()->create();
         return response()->json($animal,201);
     }
     public function show(int $id)
@@ -40,5 +44,18 @@ class AnimalController extends Controller
         Animal::destroy($id);
         return response()->noContent();
     }
-   
+    public function animalComplete(Request $request)
+    {
+        $user = User::find($request->userId);
+        $animal = $user->animals()->create($request->animal);
+        if(!$animal){
+            return response()->json(['error' => "Could not create a Animal"],404);
+        }
+        $animal->menu()->create();
+        $bio = $animal->biometry()->create($request->biometry);
+
+        dd($animal,$bio);
+        dd($request->animal);
+    }
+
 }
