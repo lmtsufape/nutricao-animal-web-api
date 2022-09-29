@@ -18,6 +18,14 @@ class Animal extends Model
     {
         return $this->hasOne(Biometry::class);
     }
+    public function menu()
+    {
+        return $this->hasOne(Menu::class);
+    }
+    public function foods()
+    {
+        return $this->hasManyThrough(Food::class,Menu::class);
+    }
 
 
 
