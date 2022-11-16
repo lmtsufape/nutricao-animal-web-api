@@ -9,8 +9,15 @@ class Menu extends Model
 {
     use HasFactory;
 
-    public function foods()
+    
+    public function animal()
     {
-        return $this->hasMany(Food::class);
+        return $this->belongsTo(Animal::class);
+    }
+    
+    public function snacks()
+    {
+        
+        return $this->belongsToMany(Snack::class,'menu_snacks','menu_id','snack_id');
     }
 }
