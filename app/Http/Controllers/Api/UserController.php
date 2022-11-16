@@ -20,33 +20,42 @@ class UserController extends Controller
         $criador = new CreateNewUser();
 
         $usuario = $criador->create($request->toArray());
+        $usuario->role = "Tutor";
         if (!$usuario){
             return response()->json(["error" => "Could not create a User"]);
         }else{
 
-            return response()->json($usuario,201);
+            return response()->json(['usuario' => $usuario, 'função'=> $usuario->role],201);
         }
     }
-    public function update(User $user,Request $request)
+    public function update(Request $request)
     {
+        $user = User::find($request->user);
         $user->fill($request->all());
         $user->save();
-        return $user;
+        return response()->json(['usuario' => $user],200);
     }
-    public function show(int $id)
+    public function show(Request $request)
     {
-        $user = User::find($id);
+        $user = User::find($request->user);
         if(!$user){
             return response()->json(["error" => "User not found"],404);
         }
-        return $user;
+        return response()->json(['usuario' => $user],200);
     }
+    public function destroy(int $id)
+    {
+        $user = User::find($id);
+        $user->destroy($id);
+        return response()->noContent();
+    }
+
     public function token(Request $request)
     {
 
         $token = $request->user()->currentAccessToken();
 
-         return response()->json($token->plainTextToken,200);
+         return response()->json(['token'=>$token->plainTextToken],200);
     }
 
 }
