@@ -60,7 +60,7 @@ class User extends Authenticatable
     ];
     public function animals()
     {
-        return $this->hasMany(Animal::class);
+        return $this->belongsToMany(Animal::class,'user_animals','user_id','animal_id');
     }
     public function foods()
     {
