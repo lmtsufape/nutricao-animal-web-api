@@ -17,9 +17,9 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->integer('menu_id');
-            $table->foreign('menu_id')->references('id')->on('users');
-            $table->integer('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('menu_id')->references('id')->on('menus')->onDelete('cascade');
+            $table->integer('snack_id');
+            $table->foreign('snack_id')->references('id')->on('snacks')->onDelete('cascade');
         });
     }
 

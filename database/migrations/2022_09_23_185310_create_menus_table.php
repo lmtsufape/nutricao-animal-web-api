@@ -18,7 +18,7 @@ return new class extends Migration
             $table->timestamps();
             $table->string('name')->nullable(true);
             $table->integer('animal_id');
-            $table->foreign('animal_id')->references('id')->on('animals');
+            $table->foreign('animal_id')->references('id')->on('animals')->onDelete('cascade');
 
         });
     }

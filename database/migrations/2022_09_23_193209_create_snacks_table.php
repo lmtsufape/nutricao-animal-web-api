@@ -18,7 +18,7 @@ return new class extends Migration
             $table->timestamps();
             $table->integer('amount');
             $table->integer('food_id');
-            $table->foreign('food_id')->references('id')->on('foods');
+            $table->foreign('food_id')->references('id')->on('foods')->onDelete('cascade');
         });
     }
 

@@ -20,9 +20,9 @@ return new class extends Migration
             $table->date('date');
             $table->time('hour');
             $table->integer('animal_id');
-            $table->foreign('animal_id')->references('id')->on('animals');
-            $table->integer('food_id')->nullable(true);
-            $table->foreign('food_id')->references('id')->on('foods');
+            $table->foreign('animal_id')->references('id')->on('animals')->onDelete('cascade');
+            $table->integer('food_id');
+            $table->foreign('food_id')->references('id')->on('foods')->onDelete('cascade');
         });
     }
 
