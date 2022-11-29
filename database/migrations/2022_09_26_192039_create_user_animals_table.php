@@ -13,13 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('menu_snacks', function (Blueprint $table) {
+        Schema::create('user_animals', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->integer('menu_id');
-            $table->foreign('menu_id')->references('id')->on('menus')->onDelete('cascade');
-            $table->integer('snack_id');
-            $table->foreign('snack_id')->references('id')->on('snacks')->onDelete('cascade');
+            $table->integer('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->integer('animal_id');
+            $table->foreign('animal_id')->references('id')->on('animals')->onDelete('cascade');
         });
     }
 
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('menu_snacks');
+        Schema::dropIfExists('user_animals');
     }
 };

@@ -10,9 +10,9 @@ class Animal extends Model
     protected $fillable = ['name','sex','is_castrated','activity_level'];
 
 
-    public function user()
+    public function users()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsToMany(User::class,'user_animals','animal_id','user_id');
     }
     public function biometry()
     {
@@ -25,6 +25,14 @@ class Animal extends Model
     public function foods()
     {
         return $this->hasManyThrough(Food::class,Menu::class);
+    }
+    public function breed()
+    {
+        return $this->hasOneThrough(Breed::class,UserAnimal::class,'animal_id','user_id','id','user_id');
+    }
+    public function records()
+    {
+        return $this->hasMany(ConsumptionRecord::class);
     }
 
 

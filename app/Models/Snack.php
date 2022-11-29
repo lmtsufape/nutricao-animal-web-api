@@ -16,4 +16,8 @@ class Snack extends Model
     {
         return $this->belongsTo(Food::class);
     }
+    public function menus()
+    {
+        return $this->belongsToMany(Menu::class,'menu_snacks','snack_id','menu_id');
+    }
 }

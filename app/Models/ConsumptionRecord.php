@@ -5,19 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Menu extends Model
+class ConsumptionRecord extends Model
 {
     use HasFactory;
 
-    
+    protected $fillable = ['amount','date','hour'];
+
+
     public function animal()
     {
         return $this->belongsTo(Animal::class);
     }
-    
-    public function snacks()
+    public function food()
     {
-        
-        return $this->belongsToMany(Snack::class,'menu_snacks','menu_id','snack_id');
+        return $this->belongsTo(Food::class);
     }
 }

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->decimal('weight',4,2);
             $table->decimal('height',3,2);
             $table->integer('animal_id');
-            $table->foreign('animal_id')->references('id')->on('animals');
+            $table->foreign('animal_id')->references('id')->on('animals')->onDelete('cascade');
         });
     }
 

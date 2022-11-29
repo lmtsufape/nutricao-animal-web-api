@@ -5,14 +5,18 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Animal;
+use App\Models\Breed;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class AnimalController extends Controller
 {
     public function index(int $id)
     {
         $user = User::find($id);
-        return $user->animals()->get();
+        $animals = $user->animals()->get();
+        
+        return response()->json(['animal'=>$animals],200);
     }
     public function store(Request $request)
     {
@@ -23,26 +27,30 @@ class AnimalController extends Controller
         }
 
         $animal->menu()->create();
-        return response()->json($animal,201);
+        return response()->json(['animal'=>$animal],201);
     }
-    public function show(int $id)
+    public function show(Request $request)
     {
-        $animal = Animal::query()->find($id);
+        $animal = Animal::find($request->animal);
         if(!$animal){
             return response()->json(['error' => "Animal not found"],404);
         }
-        return $animal;
+        return response()->json(['animal'=>$animal],200);
     }
-    public function update(Request $request,Animal $animal)
+    public function update(Request $request)
     {
+        $animal = Animal::find($request->animal);
         $animal->fill($request->all());
         $animal->save();
-        return $animal;
+        return response()->json([$animal],200);
     }
-    public function destroy(int $id)
+    public function destroy(Request $request)
     {
-        Animal::destroy($id);
+        $animal = Animal::find($request->animal);
+        $animal->users()->detach();
+        $animal->delete();
         return response()->noContent();
+
     }
     public function animalComplete(Request $request)
     {
@@ -53,9 +61,18 @@ class AnimalController extends Controller
         }
         $animal->menu()->create();
         $bio = $animal->biometry()->create($request->biometry);
+        if(!$bio){
+            return response()->json(['error' => "Could not create a Animal"],404);
+        }
+        $breed = DB::table('breeds')->where('name','=', $request->breed,'and','user_id','=', $user->id)->first();
+        if(!$breed){
+            return response()->json(['error' => "Could not create a Animal, Breed does not exist"],404);
+        }
 
-        dd($animal,$bio);
-        dd($request->animal);
+        $animal->breed = $breed;
+        $breed = Breed::find($breed->id);
+       
+        return response()->json(['animal' => $animal,'biometry' =>$animal->biometry,'breed'=>$animal->breed],201);
     }
 
 }
