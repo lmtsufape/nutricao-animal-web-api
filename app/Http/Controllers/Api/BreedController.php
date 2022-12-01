@@ -14,7 +14,7 @@ class BreedController extends Controller
     {
         return Breed::all();
     }
-   
+
     public function show(Request $request)
     {
         $breed = Breed::find($request->breed);
@@ -23,9 +23,10 @@ class BreedController extends Controller
         }
         return response()->json(['breed' => $breed],200);
     }
-    public function showSpecies(Request $request)
+    public function showSpecies(String $specie)
     {
-        $breeds =  DB::table('breeds')->where('species', $request->species)->get();
+
+        $breeds =  DB::table('breeds')->where('species', $specie)->get();
         return response()->json(['breeds' => $breeds],200);
     }
 }
