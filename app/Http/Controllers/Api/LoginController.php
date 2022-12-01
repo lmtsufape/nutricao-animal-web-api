@@ -21,8 +21,9 @@ class LoginController extends Controller{
 
         $token =  $user->createToken('verified');
 
+        $usuario = ['id' => $user->id, 'token'=> $token->plainTextToken,'name'=> $user->name,'email' => $user->email];
 
-        return response()->json(['token'=> $token->plainTextToken,'name'=> $user->name]);
+        return response()->json(['user' =>$usuario],200);
     }
 
 
