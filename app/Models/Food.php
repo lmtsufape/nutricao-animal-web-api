@@ -11,7 +11,7 @@ class Food extends Model
 
     protected $table = 'foods';
 
-    protected $fillable = ['name','category','carbohydrates'];
+    protected $fillable = ['name','category','carbohydrates','lipids','calcium','fiber','moisture','protein_value','energetic_value'];
 
 
     public function user()
