@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\BreedController;
+use App\Http\Controllers\FoodController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,15 +17,46 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home')->name('home');
 });
+Route::get('/dashboard', function () {
+    return view('dashboard');
+    })->name('dashboard');
 
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
+    Route::get('/', function () {
+        return view('home');
     })->name('dashboard');
+});
+Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+
+    Route::controller(UserController::class)->group(function () {
+        Route::get('/alunos','index')->name('alunos.index');
+        Route::get('/alunos/criar', 'create')->name('alunos.create');
+        Route::post('/alunos/criar', 'store');
+        Route::get('/alunos/{id}', 'show')->name('alunos.show');
+        Route::get('/alunos/{id}/editar', 'update')->name('alunos.update');
+        Route::delete('/alunos/{id}', 'remove')->name('alunos.remove');
+    });
+    Route::controller(FoodController::class)->group(function () {
+        Route::get('/alimentos', 'index')->name('foods.index');
+        Route::get('/alimentos/criar', 'create')->name('foods.create');
+        Route::post('/alimentos/criar', 'store');
+        Route::get('/alimentos/{id}', 'show')->name('foods.show');
+        Route::get('/alimentos/{id}/editar', 'update')->name('foods.update');
+        Route::delete('/alimentos/{id}', 'remove')->name('foods.remove');
+    });
+    Route::controller(BreedController::class)->group(function () {
+        Route::get('/racas', 'index')->name('breeds.index');
+        Route::get('/racas/criar', 'create')->name('breeds.create');
+        Route::post('/racas/criar', 'store');
+        Route::get('/racas/{id}', 'show')->name('breeds.show');
+        Route::get('/racas/{id}/editar', 'update')->name('breeds.update');
+        Route::delete('/racas/{id}', 'remove')->name('breeds.remove');
+    });
+
 });

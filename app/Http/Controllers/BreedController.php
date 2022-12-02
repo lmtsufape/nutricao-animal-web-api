@@ -6,41 +6,53 @@ use App\Http\Controllers\Controller;
 use App\Models\Breed;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class BreedController extends Controller
 {
     public function index()
     {
-        return Breed::all();
+        $breeds = Breed::query()
+        ->orderBy('species')
+        ->get();
+        return view('breeds.index', compact('breeds'));
     }
+    public function create()
+    {
+        $userId = Auth::user()->id;
+        return view('breeds.create',compact('userId'));
+    }
+
     public function store(Request $request)
     {
-        
-        $user = User::find($request->userId);
-        $breed = $user->breeds()->create($request->all());
+        $user = $request->user();
+        $breed = $user->breeds()->create([
+            'name' => $request->name,
+            'type'=> $request->type,
+            'species'=> $request->species
+       ]);
 
-        if (!$breed){
-            return response()->json(["error" => "Could not create a Breed"],406);
-        }else{
-        return response()->json($breed,201);
-        }
+
+        return redirect()->route('breeds.index');
     }
     public function show(int $id)
     {
         $breed = Breed::find($id);
-        if(!$breed){
-            return response()->json(['error' => "Breed not found"],404);
-        }
-        return $breed;
-        }
-    public function destroy(Breed $breed,int $id)
-    {
-        $breed->destroy($id);
+        return view('breeds.show',compact('breed'));
     }
-    public function showSpecies(Request $request)
+    public function update(Request $request)
     {
-        $breeds =  DB::table('breeds')->where('species', $request->species)->get();
-        return $breeds;
+        $breed =  Breed::find($request->id);
+        $breed->fill($request->all());
+        $breed->save();
+        return view('breeds.show',compact('breed'));
+    }
+
+    public function remove(int $id)
+    {
+        $breed =  Breed::find($id);
+        $breed->delete();
+        return redirect()->route('breeds.index');
     }
 }

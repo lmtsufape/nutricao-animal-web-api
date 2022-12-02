@@ -1,41 +1,63 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Food;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
-class ComidaController extends Controller
+class FoodController extends Controller
 {
     public function index()
     {
-        $user = User::find($id);
-        return $user->foods()->get();
+        $foods = Food::query()
+        ->orderBy('name')
+        ->get();
+        return view('foods.index', compact('foods'));
     }
+    public function create()
+    {
+        $userId = Auth::user()->id;
+        return view('foods.create',compact('userId'));
+    }
+
     public function store(Request $request)
     {
-        $user = User::find($request->userId);
-        $food = $user->foods()->create($request->except(['userId']));
-        return response()->json($food,201);
+        $user = $request->user();
+        $food = $user->foods()->create($request->all());
+
+
+        return redirect()->route('foods.index');
     }
     public function show(int $id)
     {
         $food = Food::find($id);
-        if (!$food){
-            return response()->json(['error' => 'Food not found'],404);
-        }
-        return $food;
+
+        return view('foods.show',compact('food'));
     }
-    public function update(Request $request,Food $food)
+
+    public function remove(int $id)
     {
-        $food->fill($request->all());
-        $food->save();
-        return $food;
+        $food = Food::find($id);
+        $food->delete();
+        return redirect()->route('foods.index');
     }
-    public function destroy(Food $food,int $id)
+    public function edit(int $id)
     {
-        $food->destroy($id);
+
+        $food = Food::find($id);
+
+        return view('foods.edit',compact('food'));
+    }
+    public function update(Request $request,int $id)
+    {
+        $food = Food::find($id);
+        $food->update();
+
+        return redirect()->route('foods.index',['id' => $food->id]);
     }
 
 }

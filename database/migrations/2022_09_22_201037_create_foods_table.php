@@ -24,9 +24,9 @@ return new class extends Migration
             $table->decimal('carbohydrates')->nullable(true);
             $table->decimal('calcium')->nullable(true);
             $table->decimal('fiber')->nullable(true);
-            $table->enum('category',['portion'])->default('portion');
+            $table->enum('category',['Portion','Meat','Vegetable','Greenery'])->default('Portion');
             $table->integer('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users');
 
         });
     }
