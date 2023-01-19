@@ -3,7 +3,9 @@
 namespace Database\Factories;
 
 use App\Models\Breed;
+use Exception;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\QueryException;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Breed>
@@ -24,13 +26,11 @@ class BreedFactory extends Factory
      */
     public function definition()
     {
-        
-        $especie = ['cat','dog'];
+
+        $tipos = ['grande porte','pequeno porte'];
         return [
-            'name' => fake()->name() ,
-            'type' =>  fake()->name() ,
-            'species' => $especie[fake()->numberBetween(0,1)],
-            'user_id' =>1 ,
+            'type' =>  $tipos[fake()->numberBetween(0,sizeof($tipos)-1)] ,
+            'user_id' =>1 
         ];
     }
 }

@@ -26,7 +26,7 @@ class FoodFactory extends Factory
     {
 
         $alimentos = ['Carne','Espinafre','Cenoura','Arroz'];
-        $categoria = ['Portion','Meat','Vegetable','Greenery'];
+        $categoria = ['portion','meat','vegetable','greenery'];
 
         return [
             'name' => $alimentos[fake()->numberBetween(0,sizeof($alimentos)-1)] ,
