@@ -3,44 +3,41 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Página de Raças') }}
         </h2>
-
-        <div>
-            <div class="input-group">
-                <div id="search-autocomplete" class="form-outline">
-
-                    <input type="search" id="form1" class="form-control" />
-
-                </div>
-            </div>
-        </div>
     </x-slot>
-    <a href="{{route('breeds.create')}}" class="btn btn-success mt-2 mb-2" >Adicionar Raça</a>
-    <table class="table table-striped-columns">
-        <thead>
-            <th class="table-dark">Nome</th>
-            <th class="table-dark">Tipo</th>
-            <th class="table-dark">Especie</th>
-            <th class="table-dark">Ações</th>
-            @foreach ($breeds as $breed)
-            <tr>
-                <td class="table-success">{{ $breed->name }}</td>
-                <td class="table-success">{{ $breed->type }}</td>
-                <td class="table-success">{{ $breed->species }}</td>
-                <td class="table-success">
-                    <form method="post" action="{{route('breeds.remove', ['id' => $breed->id])}}">
-                @csrf
-                @method('DELETE')
-                    <button class="btn btn-danger btn-sm">
-                        Deletar
-
-                    </button>
-
-                </form>
-                <span class="d-flex"><a href="{{route('breeds.show',['id' => $breed->id])}}">Mostrar</a>
-                </span> </td>
-            </tr>
-            @endforeach
-        </thead>
-
+    <div class="container ">
+        <div class="d-flex justify-content-end">
+            <a href="{{route('breeds.create')}}" class="btn btn-success m-2" >Adicionar Raça</a>
+        </div>
+        <table class="table table-striped-columns ">
+            <thead>
+                <th class="table-dark w-5"></th>
+                <th class="table-dark w-25">Nome</th>
+                <th class="table-dark w-25">Tipo</th>
+                <th class="table-dark w-25">Espécie</th>
+                <th class="table-dark w-20">Ações</th>
+            </thead>
+            <tbody class="tex-center">
+                @foreach ($breeds as $breed)
+                <tr>
+                    <td class="table-success">{{ $loop->index+1 }}</td>
+                    <td class="table-success">{{ $breed->name }}</td>
+                    <td class="table-success">{{ $breed->type  }}</td>
+                    <td class="table-success">{{ $breed->species == 'cat' ? 'Gato' : 'Cachorro' }}</td>
+                    <td class="table-success d-flex">
+                        <form method="post" action="{{route('breeds.remove', ['id' => $breed->id])}}">
+                    @csrf
+                    @method('DELETE')
+                        <button class="btn btn-danger btn-sm m-1">
+                            Deletar
+                        </button>
+                    </form>
+                        <a class="btn btn-primary btn-sm m-1" href="{{route('breeds.edit',['id' => $breed->id])}}">Editar</a>
+                        <a class="btn btn-info btn-sm m-1" href="{{route('breeds.show',['id' => $breed->id])}}">Mostrar</a>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody> 
+        </table>
+    </div>
 </x-app-layout>
 

@@ -9,9 +9,8 @@
             <thead>
                 <th class="table-dark">Nome da raça</th>
                 <th class="table-dark">Tipo</th>
-                <th class="table-dark">Especie</th>
-                <th class="table-dark">Usuario</th>
-                <th class="table-dark">Ações</th>
+                <th class="table-dark">Espécie</th>
+                <th class="table-dark">Usuário</th>
             </thead>
 
             <tr>
@@ -19,12 +18,12 @@
                 <td class="table-success">{{ $breed->type }}</td>
                 <td class="table-success">{{ $breed->species }}</td>
                 <td class="table-success"> {{$breed->user_id}}</td>
-
+                
               </tr>
 
         </table>
     </div>
-
+    
 
 
 
