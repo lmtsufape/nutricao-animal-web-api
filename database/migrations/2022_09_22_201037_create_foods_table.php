@@ -24,10 +24,10 @@ return new class extends Migration
             $table->decimal('carbohydrates')->nullable(true);
             $table->decimal('calcium')->nullable(true);
             $table->decimal('fiber')->nullable(true);
-            $table->enum('category',['Portion','Meat','Vegetable','Greenery'])->default('Portion');
+            $table->string('category')->nullable(true);
             $table->integer('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-
+                
         });
     }
 
