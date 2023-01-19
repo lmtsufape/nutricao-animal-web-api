@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\FoodStoreRequest;
 use App\Models\Food;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -24,11 +25,10 @@ class FoodController extends Controller
         return view('foods.create',compact('userId'));
     }
 
-    public function store(Request $request)
+    public function store(FoodStoreRequest $request)
     {
         $user = $request->user();
         $food = $user->foods()->create($request->all());
-
 
         return redirect()->route('foods.index');
     }
@@ -55,9 +55,9 @@ class FoodController extends Controller
     public function update(Request $request,int $id)
     {
         $food = Food::find($id);
-        $food->update();
-
-        return redirect()->route('foods.index',['id' => $food->id]);
+        $food->update($request->all());
+        $food->save();
+        return redirect()->route('foods.show',['id' => $food->id]);
     }
 
 }

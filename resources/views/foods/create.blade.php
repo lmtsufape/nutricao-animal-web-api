@@ -5,6 +5,10 @@
         </h2>
     </x-slot>
 
+    <div>
+        {{$errors->any() ? <p>$errors</p> $errors : ''}}
+    </div>
+
     <form method="POST" class="pt-3 ">
         @csrf
         <div>
@@ -55,7 +59,7 @@
                 <x-jet-label class="col-sm-1" for="carbohydrates" value="{{ __('Carboidratos') }}" />
                 <div class="col-sm-3">
 
-                    <x-jet-input id="carbohydrates" class="form-control" type="text" name="carbohydrates" required autocomplete="new-carbohydrates" />
+                    <x-jet-input id="carbohydrates" class="form-control" type="text" name="carbohydrates" :value="old('carbohydrates')" required  />
                 </div>
             </div>
         </div>

@@ -41,10 +41,18 @@ class BreedController extends Controller
         $breed = Breed::find($id);
         return view('breeds.show',compact('breed'));
     }
+    public function edit(int $id)
+    {
+
+        $breed = Breed::find($id);
+
+        return view('breeds.edit',compact('breed'));
+    }
+    
     public function update(Request $request)
     {
         $breed =  Breed::find($request->id);
-        $breed->fill($request->all());
+        $breed->update($request->all());
         $breed->save();
         return view('breeds.show',compact('breed'));
     }

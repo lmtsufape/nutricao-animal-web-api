@@ -21,6 +21,13 @@
                 </div>
             </div>
             <div class="row mx-3 my-2 justify-content-center  ">
+                <x-jet-label class="col-sm-1" for="cpf" value="{{ __('CPF') }}" />
+                <div class="col-sm-5">
+
+                    <x-jet-input id="cpf" class="form-control" type="text" name="cpf" required />
+                </div>
+            </div>
+            <div class="row mx-3 my-2 justify-content-center  ">
                 <x-jet-label class="col-sm-1" for="password" value="{{ __('Senha') }}" />
                 <div class="col-sm-5">
 

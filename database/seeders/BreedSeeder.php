@@ -6,6 +6,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Breed;
+use Exception;
 
 class BreedSeeder extends Seeder
 {
@@ -16,6 +17,18 @@ class BreedSeeder extends Seeder
      */
     public function run()
     {
-        Breed::factory()->count(10)->create();
+        $cat = ['Siamês','Edythe Boyle','Gladyce Oberbrunner','Augustus Watsica'];
+        $dog = ['Pastor Alemão','Pitcher','Border Collie','Myrtie Funk'];
+       
+        foreach ($dog as $key => $value) {
+            Breed::factory()->create(['name' => $value, 'species'=> 'dog']);
+        }
+        foreach ($cat as $key => $value) {
+            Breed::factory()->create(['name' => $value, 'species'=> 'cat']);
+        }
+
+        
+       
+        
     }
 }

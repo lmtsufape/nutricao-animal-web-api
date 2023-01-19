@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('name');
-            $table->enum('sex',['male','female']);
+            $table->string('sex');
             $table->boolean('is_castrated')->default(false);
             $table->boolean('is_alive')->default(true);
             $table->string('deathDate')->nullable(true);

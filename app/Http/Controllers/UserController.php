@@ -36,16 +36,22 @@ class UserController extends Controller
             return redirect()->route('alunos.index');
         }
     }
-    public function update(User $user,Request $request)
+    public function edit(int $id)
     {
-        $user->fill($request->all());
+        $user = User::find($id);
+        return view('alunos.edit',compact('user'));
+    }
+    public function update($id,Request $request)
+    {
+        //dd($request);
+        $user = User::find($id);
+        $user->update($request->all());
         $user->save();
-        return $user;
+        return redirect()->route('alunos.index');
     }
     public function show(int $id)
     {
         $user = User::find($id);
-
         return view('alunos.show',compact('user'));
     }
     public function remove(int $id)
@@ -53,8 +59,6 @@ class UserController extends Controller
         $user = User::find($id);
         $user->delete();
         return redirect()->route('alunos.index');
-
-
     }
 
 }
