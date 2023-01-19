@@ -26,10 +26,7 @@ class Animal extends Model
     {
         return $this->hasManyThrough(Food::class,Menu::class);
     }
-    public function breed()
-    {
-        return $this->hasOneThrough(Breed::class,UserAnimal::class,'animal_id','user_id','id','user_id');
-    }
+   
     public function records()
     {
         return $this->hasMany(ConsumptionRecord::class);
