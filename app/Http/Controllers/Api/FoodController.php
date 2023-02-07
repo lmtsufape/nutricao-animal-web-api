@@ -23,9 +23,9 @@ class FoodController extends Controller
         }
         return response()->json(['food'=>$food],200);
     }
-    public function showCategory(Request $request)
+    public function showCategory(string $category)
     {
-        $foods =  DB::table('food')->where('category', $request->category)->get();
+        $foods =  DB::table('foods')->where('category','=', $category)->get();
         if(count($foods) <= 0){
             return response()->json(['error' => 'Something went wrong'],404);
         }
