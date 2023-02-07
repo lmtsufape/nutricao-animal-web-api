@@ -21,10 +21,10 @@ class BreedSeeder extends Seeder
         $dog = ['Pastor Alemão','Pitcher','Border Collie','Myrtie Funk'];
        
         foreach ($dog as $key => $value) {
-            Breed::factory()->create(['name' => $value, 'species'=> 'dog']);
+            Breed::factory()->create(['name' => $value, 'species'=> 'Cachorro']);
         }
         foreach ($cat as $key => $value) {
-            Breed::factory()->create(['name' => $value, 'species'=> 'cat']);
+            Breed::factory()->create(['name' => $value, 'species'=> 'Gato']);
         }
 
         

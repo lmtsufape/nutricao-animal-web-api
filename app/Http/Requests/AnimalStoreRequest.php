@@ -25,10 +25,10 @@ class AnimalStoreRequest extends FormRequest
     {
         return [
             'animal.name' => 'required|string|max:255|min:3',
-            'animal.sex' => 'required|in:male,female',
+            'animal.sex' => 'required|in:macho,fêmea',
             'animal.is_castrated' => 'required|boolean',
             'animal.is_alive' => 'boolean',
-            'animaldeathDate' => 'nullable|date',
+            'animal.deathDate' => 'nullable|date',
             'animal.birthDate' => 'nullable|date',
             'animal.activity_level' => 'required|integer',
         ];
