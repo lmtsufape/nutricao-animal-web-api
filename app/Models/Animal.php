@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Animal extends Model
 {
-    protected $fillable = ['name','sex','is_castrated','activity_level'];
+    protected $fillable = ['name','sex','is_castrated','activity_level','weight','height','breed_id'];
 
 
     public function users()
@@ -30,6 +30,11 @@ class Animal extends Model
     public function records()
     {
         return $this->hasMany(ConsumptionRecord::class);
+    }
+
+    public function breed()
+    {
+        return $this->hasOne(Breed::class,'breed_id');
     }
 
 

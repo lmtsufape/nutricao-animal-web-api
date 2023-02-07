@@ -23,7 +23,8 @@ return new class extends Migration
             $table->string('deathDate')->nullable(true);
             $table->string('birthDate')->nullable(true);
             $table->integer('activity_level');
-           
+            $table->integer('breed_id')->nullable(true);
+            $table->foreign('breed_id')->references('id')->on('breeds');
         });
     }
 
