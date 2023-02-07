@@ -33,7 +33,7 @@ class FoodStoreRequest extends FormRequest
             'carbohydrates' => 'required',
             'calcium' => 'required',
             'fiber' => 'required',
-            'category' => ['required',Rule::in(['portion','meat','vegetable','greenery'])],
+            'category' => ['required',Rule::in(['Ração','Carne','Vegetal','Frutas','Verdura'])],
         ];
     }
     public function messages()

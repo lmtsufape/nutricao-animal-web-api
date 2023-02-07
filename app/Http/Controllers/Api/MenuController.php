@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Animal;
 use App\Models\Food;
 use App\Models\Menu;
+use App\Models\MenuSnack;
 use App\Models\Snack;
 use Illuminate\Http\Request;
 
@@ -14,16 +15,19 @@ class MenuController extends Controller
 
     public function index(Request $request)
     {
-        $menu = Menu::find($request->animalId);
+
+        $menu = MenuSnack::where('menu_snacks.menu_id','=',$request->animalId)
+        ->join('snacks','snacks.id','=','menu_snacks.snack_id')
+        ->join('foods','foods.id','=','food_id')->select('name','amount','category','snack_id')
+        ->get();
         if(!$menu){
             return response()->json(['error' => "Menu not found"],404);
         }
-        return response()->json(['menu'=>$menu,'snacks'=>$menu->snacks],200);
+        return response()->json(['menu'=>$menu],200);
     }
 
     public function store(Request $request)
     {
-
         $animal = Animal::find($request->animalId);
         $menu = $animal->menu()->create($request->all());
 

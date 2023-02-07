@@ -25,11 +25,7 @@ class FoodFactory extends Factory
     public function definition()
     {
 
-        $alimentos = ['Carne','Espinafre','Cenoura','Arroz'];
-        $categoria = ['portion','meat','vegetable','greenery'];
-
         return [
-            'name' => $alimentos[fake()->numberBetween(0,sizeof($alimentos)-1)] ,
             'moisture' =>  fake()->numberBetween(1,400) ,
             'energetic_value' =>fake()->numberBetween(1,400) ,
             'protein_value' =>fake()->numberBetween(1,400) ,
@@ -37,7 +33,6 @@ class FoodFactory extends Factory
             'carbohydrates' =>fake()->numberBetween(1,400),
             'calcium' =>fake()->numberBetween(1,400),
             'fiber' =>fake()->numberBetween(1,400),
-            'category'=> $categoria[fake()->numberBetween(0,sizeof($categoria)-1)],
             'user_id' => 1
         ];
     }

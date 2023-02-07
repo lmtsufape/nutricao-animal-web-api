@@ -8,6 +8,7 @@ use App\Models\Food;
 use App\Models\Menu;
 use App\Models\Snack;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 
 class SnackController extends Controller
@@ -18,22 +19,30 @@ class SnackController extends Controller
     }
     public function store(Request $request)
     {
-        
-        $menu = DB::table('menus')->where('animal_id', '=', $request->animalId)->first();
-        $food = DB::table('foods')->where('category','=',$request->category)->first();
-        if(!$menu || !$food){
-            return response()->json(['error' => "Could not create a Snack"],406);
-        }
+        DB::beginTransaction();
+        $animal = Animal::find($request->animalId);
+        $menu = $animal->menu;
+        $food = DB::table('foods')->where('name','=',$request->name)->where('category','=',$request->category)->first();
+       
+       
         $food =  Food::find($food->id);
-        $menu =  Menu::find($menu->id);
         $snack = $food->snacks()->create(['amount' => $request->amount]);
         if(!$snack){
             return response()->json(['error' => "Snack not found"],404);
         }
+        
+        $record = $animal->records()->create([
+            'amount' => $animal->biometry->weight, 'date' => date("d-m-Y"), 'hour' =>date("h:i:s"),
+            'food_id' => $food->id
+        ]);
+        if (!$record){
+            return response()->json(["error" => "Could not create a Snack"],406);
+        }
         $menu->snacks()->save($snack);
         $menu->refresh();
         
-        return response()->json(['snack'=>$snack,'menu'=>$menu->snacks],201);
+        DB::commit();
+        return response()->json(['snack'=>$snack,'menu'=>$menu->snacks,'record'=>$record],201);
     }
     public function show(Request $request)
     {

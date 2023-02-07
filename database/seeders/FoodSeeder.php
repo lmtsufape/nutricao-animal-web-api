@@ -15,6 +15,14 @@ class FoodSeeder extends Seeder
      */
     public function run()
     {
-        Food::factory()->count(1)->create();
+        $foods = ["Frutas" => ['Banana','Maça','Melancia'],
+        "Carne"=>['Alcantra','Frango','Porco'], "Ração"=> ['Golden','Pedigree','Royal Canin']];
+        
+
+        foreach ($foods as $key => $food) {
+            foreach ($food as $v => $value) {
+                Food::factory()->create(['name' => $value, 'category'=> $key]);
+            };
+        }
     }
 }
