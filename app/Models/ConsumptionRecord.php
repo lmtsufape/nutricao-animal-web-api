@@ -9,7 +9,7 @@ class ConsumptionRecord extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['amount','date','hour'];
+    protected $fillable = ['amount','date','hour','food_id'];
 
 
     public function animal()
