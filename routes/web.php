@@ -26,13 +26,13 @@ Route::get('/dashboard', function () {
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
-    'admin'
+    'verified'
 ])->group(function () {
     Route::get('/', function () {
         return view('home');
     })->name('home');
 });
-Route::middleware(['auth:sanctum', 'admin'])->group(function () {
+Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::controller(UserController::class)->group(function () {
         Route::get('/alunos','index')->name('alunos.index');
