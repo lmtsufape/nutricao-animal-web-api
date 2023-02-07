@@ -7,6 +7,7 @@ use App\Models\Animal;
 use App\Models\ConsumptionRecord;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ConsumptionRecordController extends Controller
 {
@@ -17,17 +18,16 @@ class ConsumptionRecordController extends Controller
     public function store(Request $request)
     {
         
+        
         $animal = Animal::find($request->animalId);
         $record = $animal->records()->create([
             'amount' => $request->amount, 'date' => $request->date, 'hour' => $request->hour,
             'food_id' => 1
             ]);
-        //$record = ConsumptionRecord::create($request->all());
         if (!$record){
             return response()->json(["error" => "Could not create a record"],406);
-        }else{
-        return response()->json($record,201);
         }
+        return response()->json($record,201);
     }
     public function show(int $id)
     {
