@@ -13,14 +13,18 @@ use Illuminate\Support\Facades\DB;
 
 class AnimalController extends Controller
 {
-    public function index(int $id)
+    public function index($id)
     {
-        $user = User::find($id);
-        $animals = $user->animals()->get();
-        $animal = Animal::join("breeds", "animals.breed_id", "=", "breeds.id")->
-        join("biometries","animals.id","=","biometries.animal_id")->get();
+        $animals = UserAnimal::where("user_animals.user_id","=",$id)->
+        join("animals","user_animals.animal_id","=","animals.id")->
+        join("breeds", "animals.breed_id", "=", "breeds.id")->
+        join("biometries","animals.id","=","biometries.animal_id")->
+        select(DB::raw("animals.id as id"),"animals.name","animals.image",
+        "animals.sex","animals.activity_level","animals.is_castrated","animals.birthDate",
+        DB::raw("breeds.name as breed"),DB::raw("breeds.species as specie"),"weight","height")->
+        get();
         
-        return response()->json(['animals'=>$animal],200);
+        return response()->json(['animals'=>$animals],200);
     }
     public function store(AnimalStoreRequest $request)
     {
@@ -66,21 +70,34 @@ class AnimalController extends Controller
     {
         DB::beginTransaction();
         $user = User::find($request->userId);
-        $animal = $user->animals()->create($request->animal);
-       
+        $animal = $user->animals()->create([
+            'name' =>$request->name,'sex'=>$request->sex,
+            'is_castrated'=>boolval($request->is_castrated),
+            'activity_level'=>$request->activity_level,
+            'image'=>base64_encode($request->file('image')),
+        ]);
+
+        $user->save();
         $animal->menu()->create();
-        $bio = $animal->biometry()->create($request->biometry);
+        $bio = $animal->biometry()->create(['weight'=>$request->weight,'height'=>$request->height]);
         $breed = DB::table('breeds')->where('name','=', $request->breed)->first();
     
         if(!$animal || !$bio || !$breed){
             return response()->json(['error' => "Could not create a Animal"],406);
         }
+        
         $animal->breed_id = $breed->id;
         $animal->save();
-       
         $animal->breed = $breed;
+
         DB::commit();
         return response()->json(['animal' => $animal],201);
+    }
+    public function getImage(Request $request)
+    {
+        $animal = Animal::find($request->animalId);
+        $imagem =base64_decode($animal->image);
+        return response()->json(['imagem' => $imagem],201);
     }
 
 }

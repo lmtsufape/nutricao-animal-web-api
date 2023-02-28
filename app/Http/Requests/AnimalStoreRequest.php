@@ -24,13 +24,14 @@ class AnimalStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'animal.name' => 'required|string|max:255|min:3',
-            'animal.sex' => 'required|in:macho,fêmea',
-            'animal.is_castrated' => 'required|boolean',
-            'animal.is_alive' => 'boolean',
-            'animal.deathDate' => 'nullable|date',
-            'animal.birthDate' => 'nullable|date',
-            'animal.activity_level' => 'required|integer',
+            'name' => 'required|string|max:255|min:3',
+            'sex' => 'required|in:Macho,Fêmea',
+            'is_castrated' => 'required|boolean',
+            'is_alive' => 'boolean',
+            'deathDate' => 'nullable|date',
+            'birthDate' => 'nullable|date',
+            'activity_level' => 'required|integer',
+            'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
         ];
     }
     public function messages()
