@@ -21,7 +21,7 @@ class AnimalController extends Controller
         join("biometries","animals.id","=","biometries.animal_id")->
         select(DB::raw("animals.id as id"),"animals.name","animals.image",
         "animals.sex","animals.activity_level","animals.is_castrated","animals.birthDate",
-        DB::raw("breeds.name as breed"),"weight","height")->
+        DB::raw("breeds.name as breed"),DB::raw("breeds.species as specie"),"weight","height")->
         get();
         
         return response()->json(['animals'=>$animals],200);
