@@ -7,9 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Animal extends Model
 {
-    protected $fillable = ['name','sex','is_castrated','activity_level','weight','height','breed_id'];
-
-
+    protected $fillable = [
+        'name','sex','is_castrated','activity_level','weight','height','breed_id',
+        'image'
+    ];
     public function users()
     {
         return $this->belongsToMany(User::class,'user_animals','animal_id','user_id');
