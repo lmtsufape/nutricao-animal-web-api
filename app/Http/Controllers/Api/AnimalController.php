@@ -19,7 +19,7 @@ class AnimalController extends Controller
         join("animals","user_animals.animal_id","=","animals.id")->
         join("breeds", "animals.breed_id", "=", "breeds.id")->
         join("biometries","animals.id","=","biometries.animal_id")->
-        select(DB::raw("animals.id as id"),"animals.name","animals.image",
+        select(DB::raw("animals.id as id"),"animals.name",
         "animals.sex","animals.activity_level","animals.is_castrated","animals.birthDate",
         DB::raw("breeds.name as breed"),DB::raw("breeds.species as specie"),"weight","height")->
         get();
