@@ -14,7 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::table('animals', function (Blueprint $table) {
-            $table->binary('image')->nullable(true);
+            //$table->binary('image')->nullable(true);
+            $table->string('path');
         });
     }
 

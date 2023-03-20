@@ -31,7 +31,7 @@ class AnimalStoreRequest extends FormRequest
             'deathDate' => 'nullable|date',
             'birthDate' => 'nullable|date',
             'activity_level' => 'required|integer',
-            'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+            'path' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
         ];
     }
     public function messages()

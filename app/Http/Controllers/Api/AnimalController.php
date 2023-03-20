@@ -10,6 +10,8 @@ use App\Models\Breed;
 use App\Models\User;
 use App\Models\UserAnimal;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Storage;
 
 class AnimalController extends Controller
 {
@@ -23,7 +25,7 @@ class AnimalController extends Controller
         "animals.sex","animals.activity_level","animals.is_castrated","animals.birthDate",
         DB::raw("breeds.name as breed"),DB::raw("breeds.species as specie"),"weight","height")->
         get();
-        
+
         return response()->json(['animals'=>$animals],200);
     }
     public function store(AnimalStoreRequest $request)
@@ -45,7 +47,7 @@ class AnimalController extends Controller
         }
         $user = $animal->users()->get();
         $breed = DB::table('breeds')->where('user_id','=', $user[0]->id)->first();
-        
+
         $biometry=$animal->biometry;
         return response()->json(['animal'=>$animal,'breed'=> $breed,'biometry'=>$biometry],200);
     }
@@ -70,22 +72,26 @@ class AnimalController extends Controller
     {
         DB::beginTransaction();
         $user = User::find($request->userId);
+
         $animal = $user->animals()->create([
             'name' =>$request->name,'sex'=>$request->sex,
             'is_castrated'=>boolval($request->is_castrated),
             'activity_level'=>$request->activity_level,
-            'image'=>base64_encode($request->file('image')),
+            //'image'=>base64_encode($request->file('image')),
         ]);
-
+        $path = $request->file('image')->store(
+            'images/'.$animal->id, 'public'
+        );
+        $animal->path = $path;
         $user->save();
         $animal->menu()->create();
         $bio = $animal->biometry()->create(['weight'=>$request->weight,'height'=>$request->height]);
         $breed = DB::table('breeds')->where('name','=', $request->breed)->first();
-    
+
         if(!$animal || !$bio || !$breed){
             return response()->json(['error' => "Could not create a Animal"],406);
         }
-        
+
         $animal->breed_id = $breed->id;
         $animal->save();
         $animal->breed = $breed;
@@ -93,11 +99,12 @@ class AnimalController extends Controller
         DB::commit();
         return response()->json(['animal' => $animal],201);
     }
-    public function getImage(Request $request)
+    public function getImage($id)
     {
-        $animal = Animal::find($request->animalId);
-        $imagem =base64_decode($animal->image);
-        return response()->json(['imagem' => $imagem],201);
+        $animal = Animal::find($id);
+        $imagem = Storage::get('public/' . $animal->path);
+        return Response::make($imagem, 200)->header('Content-Type', 'image/jpg');
+
     }
 
 }
