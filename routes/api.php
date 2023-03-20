@@ -32,7 +32,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::apiResource('users/{userId}/animals',AnimalController::class)->except('store');
     Route::post('users/{userId}/animals/complete',[AnimalController::class,'animalComplete']);
-    Route::get('users/{userId}/animals/{animalId}/image',[AnimalController::class,'getImage']);
+    Route::get('image/{id}',[AnimalController::class,'getImage']);
 
     Route::apiResource('users/{userId}/animals/{animalId}/biometry',BiometryController::class);
 
