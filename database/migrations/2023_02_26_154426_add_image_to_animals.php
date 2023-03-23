@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::table('animals', function (Blueprint $table) {
             //$table->binary('image')->nullable(true);
-            $table->string('path');
+            $table->string('path')->nullable(true);
         });
     }
 
