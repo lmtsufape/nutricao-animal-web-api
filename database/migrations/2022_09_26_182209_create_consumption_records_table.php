@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('consumption_records', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->integer('amount');
-            $table->date('date');
-            $table->time('hour');
+            $table->decimal('amount')->nullable(true);
+            $table->date('date')->nullable(true);
+            $table->time('hour')->nullable(true);
             $table->integer('animal_id');
             $table->foreign('animal_id')->references('id')->on('animals')->onDelete('cascade');
             $table->integer('food_id');
