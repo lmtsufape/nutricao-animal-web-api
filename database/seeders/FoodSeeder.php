@@ -16,8 +16,8 @@ class FoodSeeder extends Seeder
     public function run()
     {
         $foods = ["Frutas" => ['Banana','Maça','Melancia'],
-        "Carne"=>['Alcantra','Frango','Porco'], "Ração"=> ['Golden','Pedigree','Royal Canin']];
-        
+        "Carne"=>['Alcatra','Frango','Porco'], "Ração"=> ['Golden','Pedigree','Royal Canin']];
+
 
         foreach ($foods as $key => $food) {
             foreach ($food as $v => $value) {
