@@ -30,19 +30,19 @@ class SnackController extends Controller
         if(!$snack){
             return response()->json(['error' => "Snack not found"],404);
         }
-
+        /*
         $record = $animal->records()->create([
             'amount' => $animal->biometry->weight, 'date' => date("d-m-Y"), 'hour' =>date("h:i:s"),
             'food_id' => $food->id
         ]);
         if (!$record){
             return response()->json(["error" => "Could not create a Snack"],406);
-        }
+        }*/
         $menu->snacks()->save($snack);
         $menu->refresh();
 
         DB::commit();
-        return response()->json(['snack'=>$snack,'menu'=>$menu->snacks,'record'=>$record],201);
+        return response()->json(['snack'=>$snack,'menu'=>$menu->snacks],201);
     }
     public function show(Request $request)
     {
