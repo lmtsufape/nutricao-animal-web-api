@@ -54,7 +54,10 @@ class AnimalController extends Controller
     public function update(Request $request)
     {
         $animal = Animal::find($request->animal);
-        $animal->fill($request->all());
+        $bio = $request->only("weight","height");
+        $animal->biometry->fill($bio);
+        $animal->fill($request->except("weight","height"));
+
         $animal->save();
         return response()->json([$animal],200);
     }
