@@ -23,14 +23,14 @@ class SnackController extends Controller
         $animal = Animal::find($request->animalId);
         $menu = $animal->menu;
         $food = DB::table('foods')->where('name','=',$request->name)->where('category','=',$request->category)->first();
-       
-       
+
+
         $food =  Food::find($food->id);
         $snack = $food->snacks()->create(['amount' => $request->amount]);
         if(!$snack){
             return response()->json(['error' => "Snack not found"],404);
         }
-        
+
         $record = $animal->records()->create([
             'amount' => $animal->biometry->weight, 'date' => date("d-m-Y"), 'hour' =>date("h:i:s"),
             'food_id' => $food->id
@@ -40,13 +40,13 @@ class SnackController extends Controller
         }
         $menu->snacks()->save($snack);
         $menu->refresh();
-        
+
         DB::commit();
         return response()->json(['snack'=>$snack,'menu'=>$menu->snacks,'record'=>$record],201);
     }
     public function show(Request $request)
     {
-        
+
         $snacks = Snack::find($request->snack);
         if(!$snacks){
             return response()->json(['error' => "Snack not found"],404);
@@ -61,7 +61,7 @@ class SnackController extends Controller
         $snack->save();
         return response()->json(['snack' => $snack],200);
     }
-    
+
     public function destroy(Request $request)
     {
         $snack = Snack::find($request->snack);
