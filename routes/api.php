@@ -32,14 +32,13 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::apiResource('users/{userId}/animals',AnimalController::class)->except('store');
     Route::post('users/{userId}/animals/complete',[AnimalController::class,'animalComplete']);
-   
 
     Route::apiResource('users/{userId}/animals/{animalId}/biometry',BiometryController::class);
 
     Route::apiResource('users/{userId}/breed',BreedController::class)->only('index','show');
     Route::get('users/breed/{specie}',[BreedController::class,'showSpecies']);
 
-    Route::apiResource('users/{userId}/animals/{animalId}/menu', MenuController::class);
+    Route::apiResource('users/{userId}/animals/{animalId}/menu/', MenuController::class);
     Route::apiResource('users/{userId}/animals/{animalId}/menu/snack', SnackController::class);
 
     Route::apiResource('users/{userId}/animals/{animalId}/record',ConsumptionRecordController::class);

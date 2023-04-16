@@ -5,17 +5,22 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Animal;
 use App\Models\Food;
-use App\Models\Menu;
 use App\Models\Snack;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 
 class SnackController extends Controller
 {
     public function index()
     {
-        return Snack::all();
+        $hoje= Carbon::today()->toDateString();
+        $snacks = Snack::whereRaw('DATE(created_at) = ?', $hoje)->get();
+        if (! $snacks||  sizeof($snacks) == 0) {
+            return response()->json(['erro' => 'Nenhum alimento dado hoje'], 404);
+        }
+
+        return response()->json(['alimentos' => $snacks], 200);
     }
     public function store(Request $request)
     {
@@ -24,7 +29,6 @@ class SnackController extends Controller
         $menu = $animal->menu;
         $food = DB::table('foods')->where('name','=',$request->name)->where('category','=',$request->category)->first();
 
-
         $food =  Food::find($food->id);
         $snack = $food->snacks()->create(['amount' => $request->amount]);
         if(!$snack){
@@ -32,12 +36,13 @@ class SnackController extends Controller
         }
         /*
         $record = $animal->records()->create([
-            'amount' => $animal->biometry->weight, 'date' => date("d-m-Y"), 'hour' =>date("h:i:s"),
-            'food_id' => $food->id
+            'amount' => $animal->biometry->weight, 'date' => Carbon::today()->toDateString(),
+            'hour' => Carbon::today()->hour(),'food_id' => $food->id
         ]);
         if (!$record){
             return response()->json(["error" => "Could not create a Snack"],406);
         }*/
+
         $menu->snacks()->save($snack);
         $menu->refresh();
 
