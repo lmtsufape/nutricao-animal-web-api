@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Animal;
 use App\Models\Food;
+use App\Models\MenuSnack;
 use App\Models\Snack;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -12,10 +13,12 @@ use Illuminate\Support\Facades\DB;
 
 class SnackController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $hoje= Carbon::today()->toDateString();
-        $snacks = Snack::whereRaw('DATE(created_at) = ?', $hoje)->get();
+        $hoje = Carbon::today()->toDateString();
+        $snacks = MenuSnack::where('menu_snacks.menu_id', '=', $request->animalId)
+        ->join('snacks', 'snacks.id', '=', 'menu_snacks.snack_id')->
+        whereRaw('DATE(snacks.created_at) = ?', $hoje)->get();
         if (! $snacks||  sizeof($snacks) == 0) {
             return response()->json(['erro' => 'Nenhum alimento dado hoje'], 404);
         }
@@ -47,7 +50,7 @@ class SnackController extends Controller
         $menu->refresh();
 
         DB::commit();
-        return response()->json(['snack'=>$snack,'menu'=>$menu->snacks],201);
+        return response()->json(['snack' => $snack],201);
     }
     public function show(Request $request)
     {
