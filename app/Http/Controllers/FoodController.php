@@ -57,7 +57,7 @@ class FoodController extends Controller
         $food = Food::find($id);
         $food->update($request->all());
         $food->save();
-        return redirect()->route('foods.show',['id' => $food->id]);
+        return redirect()->route('foods.index');
     }
 
 }
