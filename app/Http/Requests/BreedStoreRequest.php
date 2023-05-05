@@ -24,7 +24,9 @@ class BreedStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:255|unique',
+            'name' => 'required|string|max:255|unique:breeds',
+            'type' => 'required|in:grande porte,pequeno porte',
+            'species' => 'required|in:Cachorro,Gato',
         ];
     }
 }

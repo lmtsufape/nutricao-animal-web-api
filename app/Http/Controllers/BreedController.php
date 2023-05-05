@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\BreedStoreRequest;
 use App\Models\Breed;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -24,7 +25,7 @@ class BreedController extends Controller
         return view('breeds.create',compact('userId'));
     }
 
-    public function store(Request $request)
+    public function store(BreedStoreRequest $request)
     {
         $user = $request->user();
         $breed = $user->breeds()->create([
@@ -48,7 +49,7 @@ class BreedController extends Controller
 
         return view('breeds.edit',compact('breed'));
     }
-    
+
     public function update(Request $request)
     {
         $breed =  Breed::find($request->id);
