@@ -24,7 +24,10 @@ class UserStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => ['required', 'string','min:3', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => $this->passwordRules(),
+            'cpf' => ['required','regex:/^\d{3}\.\d{3}\.\d{3}\-\d{2}$/', 'unique:users'],
         ];
     }
 }

@@ -36,6 +36,7 @@ class CreateNewUser implements CreatesNewUsers
             'password' => Hash::make($input['password']),
             'email_verified_at' => now(),
             'remember_token' => Str::random(10),
+            'cpf' => $input['cpf'],
         ]);
         return $user;
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Actions\Fortify\CreateNewUser;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserStoreRequest;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Providers\FortifyServiceProvider;
@@ -22,7 +23,7 @@ class UserController extends Controller
         $userId = Auth::user()->id;
         return view('alunos.create',compact('userId'));
     }
-    public function store(Request $request)
+    public function store(UserStoreRequest $request)
     {
         $criador = new CreateNewUser();
 
@@ -43,7 +44,6 @@ class UserController extends Controller
     }
     public function update($id,Request $request)
     {
-        //dd($request);
         $user = User::find($id);
         $user->update($request->all());
         $user->save();
