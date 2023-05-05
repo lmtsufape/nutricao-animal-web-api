@@ -9,18 +9,20 @@
                         <x-jet-application-mark class="block h-9 w-auto" />
                     </a>
                 </div>
-
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                    <x-jet-nav-link  href="{{ route('home') }}">
                         {{ __('NutriPet') }}
                     </x-jet-nav-link>
                 </div>
+                @if (Auth::user()->tipo == 'admin')
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link  href="{{ route('home') }}">
-                        {{ __('Home') }}
+                    <x-jet-nav-link href="{{ route('alunos.index') }}">
+                        {{ __('Alunos') }}
                     </x-jet-nav-link>
                 </div>
+                @endif
+
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('foods.index') }}">
                         {{ __('Alimentos') }}
@@ -29,11 +31,6 @@
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('breeds.index') }}">
                         {{ __('Raças') }}
-                    </x-jet-nav-link>
-                </div>
-                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('alunos.index') }}">
-                        {{ __('Alunos') }}
                     </x-jet-nav-link>
                 </div>
             </div>
@@ -102,7 +99,7 @@
                                     <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition">
                                         {{ ucfirst(Auth::user()->name) }}
 
-                                       
+
                                     </button>
                                 </span>
                             @endif

@@ -14,12 +14,6 @@
                     <x-jet-input id="name" class="form-control" type="text" name="name" value="{{$user->name}}" required autofocus autocomplete="name" />
                 </div>
             </div>
-            <div class="row mx-3 my-2 justify-content-center">
-                <x-jet-label class="col-sm-1" for="email" value="{{ __('Email') }}" />
-                <div class="col-sm-5">
-                    <x-jet-input id="email" class="form-control" type="text" name="email" value="{{$user->email}}" required />
-                </div>
-            </div>
             <div class="row mx-3 my-2 justify-content-center  ">
                 <x-jet-label class="col-sm-1" for="cpf" value="{{ __('CPF') }}" />
                 <div class="col-sm-5">

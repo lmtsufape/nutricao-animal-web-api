@@ -6,7 +6,7 @@
     </x-slot>
 
     <div>
-        {{$errors->any() ? <p>$errors</p> $errors : ''}}
+        <p>{{$errors->any() ? $errors : ''}}</p>
     </div>
 
     <form method="POST" class="pt-3 ">
@@ -19,7 +19,13 @@
                 </div>
                 <x-jet-label class="col-sm-1" for="category" value="{{ __('Categoria') }}" />
                 <div class="col-sm-3">
-                    <x-jet-input id="category" class="form-control" type="text" name="category" :value="old('category')" required />
+                    <select id="category" name="category">
+                        <option value="Ração">Ração</option>
+                        <option value="Carne">Carne</option>
+                        <option value="Vegetal">Vegetal</option>
+                        <option value="Frutas">Frutas</option>
+                        <option value="Verdura">Verdura</option>
+                    </select>
                 </div>
                 <x-jet-label class="col-sm-1" for="lipids" value="{{ __('Lipídos') }}" />
                 <div class="col-sm-3">

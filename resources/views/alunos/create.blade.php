@@ -15,7 +15,7 @@
                 </div>
             </div>
             <div class="row mx-3 my-2 justify-content-center">
-                <x-jet-label class="col-sm-1" for="email" value="{{ __('Email') }}" />
+                <x-jet-label class="col-sm-1" for="email" value="{{ __('E-mail') }}" />
                 <div class="col-sm-5">
                     <x-jet-input id="email" class="form-control" type="text" name="email" :value="old('email')" required />
                 </div>

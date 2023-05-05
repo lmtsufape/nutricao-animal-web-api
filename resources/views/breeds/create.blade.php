@@ -17,14 +17,19 @@
             <div class="row m-3 justify-content-center">
                 <x-jet-label class="col-sm-1" for="type" value="{{ __('Tipo') }}" />
                 <div class="col-sm-5">
-                    <x-jet-input id="type" class="form-control" type="text" name="type" :value="old('type')" required />
+                    <select id="type" name="type">
+                        <option value="grande porte">Grande porte</option>
+                        <option value="pequeno porte">Pequeno porte</option>
+                    </select>
                 </div>
             </div>
             <div class="row m-3 justify-content-center  ">
-                <x-jet-label class="col-sm-1" for="species" value="{{ __('Especie') }}" />
+                <x-jet-label class="col-sm-1" for="species" value="{{ __('Espécie') }}" />
                 <div class="col-sm-5">
-
-                    <x-jet-input id="species" class="form-control" type="text" name="species" required autocomplete="new-species" />
+                    <select id="species" name="species">
+                        <option value="Gato">Gato</option>
+                        <option value="Cachorro">Cachorro</option>
+                    </select>
                 </div>
             </div>
         </div>

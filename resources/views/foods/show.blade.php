@@ -4,7 +4,7 @@
             {{ __('Mostrar Alimento') }}
         </h2>
     </x-slot>
-    <div class="text-center bg-dark p-1" >
+    <div class="text-center p-1" >
         <ul>
             <li>Alimento - {{$food->name}}</li>
             <li>Categoria - {{$food->category}}</li>
@@ -17,7 +17,7 @@
             <li>Umidade - {{$food->moisture}}</li>
         </ul>
     </div>
-   
-    
+
+
 
 </x-app-layout>

@@ -21,8 +21,8 @@
                 <tr>
                     <td class="table-success">{{ $loop->index+1 }}</td>
                     <td class="table-success">{{ $breed->name }}</td>
-                    <td class="table-success">{{ $breed->type  }}</td>
-                    <td class="table-success">{{ $breed->species == 'cat' ? 'Gato' : 'Cachorro' }}</td>
+                    <td class="table-success">{{ucfirst($breed->type) }}</td>
+                    <td class="table-success">{{ $breed->species }}</td>
                     <td class="table-success d-flex">
                         <form method="post" action="{{route('breeds.remove', ['id' => $breed->id])}}">
                     @csrf
@@ -36,7 +36,7 @@
                     </td>
                 </tr>
                 @endforeach
-            </tbody> 
+            </tbody>
         </table>
     </div>
 </x-app-layout>
