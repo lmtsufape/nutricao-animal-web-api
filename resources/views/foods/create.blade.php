@@ -6,7 +6,9 @@
     </x-slot>
 
     <div>
-        <p>{{$errors->any() ? $errors : ''}}</p>
+        @if($errors->any())
+            <p class="alert alert-warning">{{ $errors }}</p>
+        @endif
     </div>
 
     <form method="POST" class="pt-3 ">
@@ -27,7 +29,7 @@
                         <option value="Verdura">Verdura</option>
                     </select>
                 </div>
-                <x-jet-label class="col-sm-1" for="lipids" value="{{ __('Lipídos') }}" />
+                <x-jet-label class="col-sm-1" for="lipids" value="{{ __('Lipídios') }}" />
                 <div class="col-sm-3">
 
                     <x-jet-input id="lipids" class="form-control" type="text" name="lipids" :value="old('lipids')" required />
@@ -69,8 +71,12 @@
                 </div>
             </div>
         </div>
-        <div class="flex items-center justify-end mt-4">
-
+        <div class="flex items-center justify-center mt-4">
+            <x-jet-button class="ml-4">
+                <a href="{{ route('foods.index') }}" style="text-decoration: none; color: white;" >
+                    {{ __('Voltar') }}
+                </a>
+            </x-jet-button>
             <x-jet-button class="ml-4">
                 {{ __('Adicionar') }}
             </x-jet-button>

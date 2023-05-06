@@ -5,17 +5,35 @@
         </h2>
     </x-slot>
     <div class="text-center p-1" >
-        <ul>
-            <li>Alimento - {{$food->name}}</li>
-            <li>Categoria - {{$food->category}}</li>
-            <li>Carboidratos - {{$food->carbohydrates}}</li>
-            <li>Lipidos - {{$food->lipids}}</li>
-            <li>Calcio - {{$food->calcium}}</li>
-            <li>Proteina - {{$food->protein_value}}</li>
-            <li>Fibra - {{$food->fiber}}</li>
-            <li>Valor energetico - {{$food->energetic_value}}</li>
-            <li>Umidade - {{$food->moisture}}</li>
-        </ul>
+        <table class="table table-striped-columns">
+            <thead>
+                <th class="table-dark">Alimento</th>
+                <th class="table-dark">Categoria</th>
+                <th class="table-dark">Carboidratos</th>
+                <th class="table-dark">Lipídios</th>
+                <th class="table-dark">Cálcio</th>
+                <th class="table-dark">Proteína </th>
+                <th class="table-dark">Fibra</th>
+                <th class="table-dark">Valor energético</th>
+                <th class="table-dark">Umidade</th>
+            </thead>
+            <tr>
+                <td class="table-success">{{ $food->name }}</td>
+                <td class="table-success">{{ $food->category }}</td>
+                <td class="table-success">{{ $food->carbohydrates }}</td>
+                <td class="table-success">{{ $food->lipids }}</td>
+                <td class="table-success">{{ $food->calcium }}</td>
+                <td class="table-success">{{ $food->protein_value }}</td>
+                <td class="table-success">{{ $food->fiber }}</td>
+                <td class="table-success">{{ $food->energetic_value }}</td>
+                <td class="table-success">{{ $food->moisture }}</td>
+              </tr>
+        </table>
+        <x-jet-button class="ml-4">
+            <a href="{{ route('foods.index') }}" style="text-decoration: none; color: white;" >
+                {{ __('Voltar') }}
+            </a>
+        </x-jet-button>
     </div>
 
 

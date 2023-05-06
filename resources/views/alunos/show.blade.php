@@ -21,8 +21,11 @@
                 </tbody>
             </thead>
         </table>
+        <x-jet-button class="ml-4">
+            <a href="{{ route('alunos.index') }}" style="text-decoration: none; color: white;" >
+                {{ __('Voltar') }}
+            </a>
+        </x-jet-button>
     </div>
-    <x-jet-button class="ml-4" >
-       <a href="{{ URL::previous() }}">{{ __('Voltar') }}</a> 
-   </x-jet-button>
+
   </x-app-layout>

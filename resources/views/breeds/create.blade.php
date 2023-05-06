@@ -5,6 +5,12 @@
         </h2>
     </x-slot>
 
+    <div>
+        @if($errors->any())
+            <p class="alert alert-warning">{{ utf8_decode($errors) }}</p>
+        @endif
+    </div>
+
     <form method="POST" class="pt-3 ">
         @csrf
         <div >
@@ -35,9 +41,10 @@
         </div>
         <div class="flex items-center justify-center mt-4 mr-6">
             <x-jet-button class="ml-4">
-                {{ __('Voltar') }}
+                <a href="{{ route('breeds.index') }}" style="text-decoration: none; color: white;" >
+                    {{ __('Voltar') }}
+                </a>
             </x-jet-button>
-
             <x-jet-button class="ml-4">
                 {{ __('Adicionar') }}
             </x-jet-button>
