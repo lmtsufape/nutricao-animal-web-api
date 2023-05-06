@@ -50,7 +50,7 @@ class BreedController extends Controller
         return view('breeds.edit',compact('breed'));
     }
 
-    public function update(Request $request)
+    public function update(BreedStoreRequest $request)
     {
         $breed =  Breed::find($request->id);
         $breed->update($request->all());

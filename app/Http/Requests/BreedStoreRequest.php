@@ -24,9 +24,21 @@ class BreedStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:255|unique:breeds',
+            'name' => 'required|string|max:255|min:3|unique:breeds',
             'type' => 'required|in:grande porte,pequeno porte',
             'species' => 'required|in:Cachorro,Gato',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'required' => 'A :attribute is required',
+            'string' => 'The :attribute need to have a least 3 letters',
+            'max' => 'The :attribute must be less than :max characters.',
+            'min' => 'The :attribute must have at least :min characters.',
+            'unique' => 'The :attribute already exists.',
+            'in' => 'The :attribute must be one of the following types: :values',
         ];
     }
 }

@@ -34,20 +34,15 @@ class AnimalStoreRequest extends FormRequest
             //'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
         ];
     }
+
     public function messages()
-{
-    return [
-        'required' => 'The :attribute is required.',
-        'string' => 'The :attribute must be a string.',
-        'max' => 'The :attribute name must be less than :max characters.',
-        'min' => 'The :attribute name must have at least :min characters.',
-        'sex.in' => 'The :attribute must be either male or female.',
-    ];
-}
-
-
-
-
-
-
+    {
+        return [
+            'required' => 'The :attribute is required.',
+            'string' => 'The :attribute must be a string.',
+            'max' => 'The :attribute name must be less than :max characters.',
+            'min' => 'The :attribute name must have at least :min characters.',
+            'sex.in' => 'The :attribute must be either male or female.',
+        ];
+    }
 }

@@ -52,7 +52,7 @@ class FoodController extends Controller
 
         return view('foods.edit',compact('food'));
     }
-    public function update(Request $request,int $id)
+    public function update(FoodStoreRequest $request,int $id)
     {
         $food = Food::find($id);
         $food->update($request->all());
