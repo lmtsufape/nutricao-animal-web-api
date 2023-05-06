@@ -33,16 +33,18 @@ Route::middleware([
     })->name('home');
 });
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+    Route::middleware('admin')->group( fn() =>
+        Route::controller(UserController::class)->group(function () {
+            Route::get('/alunos','index')->name('alunos.index');
+            Route::get('/alunos/criar', 'create')->name('alunos.create');
+            Route::post('/alunos/criar', 'store');
+            Route::get('/alunos/{id}', 'show')->name('alunos.show');
+            Route::get('/alunos/{id}/editar', 'edit')->name('alunos.edit');
+            Route::post('/alunos/{id}/editar', 'update')->name('alunos.update');
+            Route::delete('/alunos/{id}', 'remove')->name('alunos.remove');
+        })
+    );
 
-    Route::controller(UserController::class)->group(function () {
-        Route::get('/alunos','index')->name('alunos.index');
-        Route::get('/alunos/criar', 'create')->name('alunos.create');
-        Route::post('/alunos/criar', 'store');
-        Route::get('/alunos/{id}', 'show')->name('alunos.show');
-        Route::get('/alunos/{id}/editar', 'edit')->name('alunos.edit');
-        Route::post('/alunos/{id}/editar', 'update')->name('alunos.update');
-        Route::delete('/alunos/{id}', 'remove')->name('alunos.remove');
-    });
     Route::controller(FoodController::class)->group(function () {
         Route::get('/alimentos', 'index')->name('foods.index');
         Route::get('/alimentos/criar', 'create')->name('foods.create');
